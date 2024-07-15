@@ -5,6 +5,7 @@ import Link from 'next/link';
 import AddShoppingCart from '@/app/components/(icon)/AddShoppingCart';
 import Modal from '@/app/components/Modal';
 import { useSearchParams } from 'next/navigation';
+import Button from '@/app/components/Button';
 
 export default function ProductDetail({ params }) {
   const productId = params.id;
@@ -21,7 +22,8 @@ export default function ProductDetail({ params }) {
       <p>Product Name: {productName}</p>
       {/* Display other product details here */}
       <AddShoppingCart className="cursor-pointer" onClick={() => setShowModal(true)} /> 
-      {showModal && <Modal />} 
+      {showModal && <Modal onClose={() => setShowModal(false)} />}
+      <Button>ซื้อสินค้า</Button>
     </div>
   );
 }
