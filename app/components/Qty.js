@@ -4,17 +4,19 @@
 //Qty.js
 import { useState } from 'react';
 
-export default function Qty() {
+export default function Qty({ onCountChange }) {
   const [count, setCount] = useState(0);
 
   const increment = () => {
     setCount(count + 1);
+    onCountChange(count + 1); // Notify parent about count change
   };
 
   const decrement = () => {
     
 if (count > 0) {
       setCount(count - 1);
+      onCountChange(count - 1); // Notify parent about count change
     }
   };
 

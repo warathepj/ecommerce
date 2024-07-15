@@ -12,8 +12,13 @@ export default function ProductDetail({ params }) {
   const searchParams = useSearchParams();
   const productName = searchParams.get('name');
   const [showModal, setShowModal] = useState(false);
+  const [modalButtonText, setModalButtonText] = useState('');
   // Fetch product details based on productId (you'll need to implement this)
   // ...
+  const handleBuyButtonClick = () => {
+    setModalButtonText("ซื้อสินค้า"); // Set button text for "Buy"
+    setShowModal(true); 
+};
 
   return (
     <div>
@@ -21,9 +26,18 @@ export default function ProductDetail({ params }) {
       <p>Product ID: {productId}</p>
       <p>Product Name: {productName}</p>
       {/* Display other product details here */}
-      <AddShoppingCart className="cursor-pointer" onClick={() => setShowModal(true)} /> 
-      {showModal && <Modal onClose={() => setShowModal(false)} />}
-      <Button>ซื้อสินค้า</Button>
+      <AddShoppingCart className="cursor-pointer" onClick={() => {
+                setModalButtonText("เพิ่มไปยังรถเข็น"); // Set button text for "Add to Cart"
+                setShowModal(true);
+            }} /> 
+            <Button onClick={handleBuyButtonClick}>ซื้อสินค้า</Button>
+            {showModal && ( 
+                <Modal 
+                    onClose={() => setShowModal(false)} 
+                    productId={productId} 
+                    buttonText={modalButtonText}  // Use dynamic button text
+                />
+            )}
     </div>
   );
 }
