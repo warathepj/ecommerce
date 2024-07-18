@@ -5,16 +5,24 @@ import { useContext } from 'react';
      import Link from 'next/link';
 
 export default function Recommend() {
-  const products = useContext(ProductContext);
-
+  const { productsWithDiscount, isLoading } = useContext(ProductContext);
+  if (isLoading) {
+    return <div>Loading recommendations...</div>;
+  }
   return (
     <div className="p-1 bg-green-200 text-green-900">
       <p>สินค้าแนะนำประจำวัน</p> {/* Added the 'r' within a p tag */}
       {/* Some content here */}
       <div className="grid grid-cols-2 gap-1">
-      {products.map(product => (
+      {productsWithDiscount.map(product => (
           <Link key={product.id} href={`/products/${product.id}`}> 
-            <Card name={product.name} /> 
+            <Card 
+              key={product.id} 
+              id={product.id} 
+              image={product.image} 
+              discount={product.discount} 
+              discountPrice={product.discountPrice} 
+              name={product.name} /> 
           </Link>
         ))}
       </div>
