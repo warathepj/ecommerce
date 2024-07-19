@@ -22,7 +22,9 @@ export default function Recommend() {
               image={product.image} 
               discount={product.discount} 
               discountPrice={product.discountPrice} 
-              name={product.name} /> 
+              name={product.name} 
+              descriptionHead={product.descriptionHead} 
+            /> 
           </Link>
         ))}
       </div>
