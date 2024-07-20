@@ -1,4 +1,4 @@
-// app/cart/page.js
+// app/cart/page.js/
 "use client"
 import ArrowLeft from "../components/(icon)/ArrowLeft";
 import { useRouter } from 'next/navigation';
@@ -6,6 +6,9 @@ import { useOrder } from '../../context/OrderContext';
 // import { useSearchParams } from 'next/navigation';
 
 export default function Cart() {
+  //why orders in app/cart/page.js/
+  console.log("useOrder from cart : ", useOrder());
+  // is empty array, useOrder is in context/OrderContext
   const router = useRouter();
   const { order } = useOrder();
   // const searchParams = useSearchParams();

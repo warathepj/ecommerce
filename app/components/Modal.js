@@ -1,4 +1,4 @@
-// app/components/Modal.js
+// app/components/Modal.js/
 import { useState, useEffect } from 'react';
 import { useOrder } from '../../context/OrderContext';
 // import { OrderProvider } from '../../context/OrderContext';
@@ -9,27 +9,21 @@ import Button from './Button';
 export default function Modal({ onClose, buttonText, productId, onOrderChange }) {
     // const { order, setOrder } = useOrder();
     const [count, setCount] = useState(0);
-    const { setOrder } = useOrder();
+    const { setOrders } = useOrder();
+    const { addOrder } = useOrder();
     // const [order, setOrder] = useState(null);
     // const [count, setCount] = useState(order ? order.count : 0); // State to store count
     // order = { productId, count };
     // console.log(order);
-
+//modify app/components/Modal.js/
     const handleCloseAndOrder = () => {
-        setOrder({ productId, count }); // Create order object
+        // to create array of order object after add more order, useOrder is from '../../context/OrderContext
+        // from app/components/Modal.js/
+        addOrder({ productId, count }); // Add new order to the array
+        // count is not add to
+        setOrders({ productId, count }); // Create order object
         onClose(); // Close the modal
       };
-    // Update order when count changes
-    // useEffect(() => {
-    //     const newOrder = { productId, count };
-    //     setOrder(newOrder);
-    // }, [count, productId, setOrder]);
-
-    // const handleViewCart = () => {
-    //     console.log("Order before navigation:", order); // Check if order is populated
-    //     const queryString = new URLSearchParams(order).toString();
-    //     router.push(`/cart?${queryString}`);
-    // };
 
     return (
         <div className='bg-blue-100'>
@@ -46,6 +40,7 @@ export default function Modal({ onClose, buttonText, productId, onOrderChange })
             <p>Count from Modal: {count}</p>
             {/* <Qty onCountChange={setCount} /> */}
             <Qty onCountChange={setCount} />
+            {/* when click app/components/Modal.js/ */}
             <Button onClick={handleCloseAndOrder}>
                 {buttonText}
             </Button>

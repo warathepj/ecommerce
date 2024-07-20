@@ -4,14 +4,20 @@ import { useState } from 'react';
 import { useContext } from 'react';
 import { useRouter } from 'next/navigation';
 
-import Link from 'next/link';
-import AddShoppingCart from '@/app/components/(icon)/AddShoppingCart';
-import Modal from '@/app/components/Modal';
 import { useSearchParams } from 'next/navigation';
 import { useOrder } from '../../../context/OrderContext';
+
+import Link from 'next/link';
+
 import ProductContext from '../../../context/ProductContext';
+
+import AddShoppingCart from '@/app/components/(icon)/AddShoppingCart';
+import Modal from '@/app/components/Modal';
+import ShoppingCart from "../../components/(icon)/ShoppingCart";
 import ArrowLeft from "../../components/(icon)/ArrowLeft";
 import Button from '@/app/components/Button';
+
+
 
 export default function ProductDetail({ params }) {
   const router = useRouter();
@@ -52,6 +58,7 @@ export default function ProductDetail({ params }) {
   };
   return (
     <div className="bg-red-100">
+      <ShoppingCart />
       <ArrowLeft style={{ cursor: 'pointer' }} onClick={handleGoBack} />
 
       <h1 className='bg-red-500'>Product Detail</h1>
