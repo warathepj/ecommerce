@@ -2,15 +2,15 @@
 "use client"
 import ArrowLeft from "../components/(icon)/ArrowLeft";
 import { useRouter } from 'next/navigation';
-import { useOrder } from '../../context/OrderContext';
+import { useProducts } from '../../context/ProductsContext';
+
 // import { useSearchParams } from 'next/navigation';
 
 export default function Cart() {
   //why orders in app/cart/page.js/
-  console.log("useOrder from cart : ", useOrder());
   // is empty array, useOrder is in context/OrderContext
   const router = useRouter();
-  const { order } = useOrder();
+  const { products, addProduct } = useProducts();
   // const searchParams = useSearchParams();
   // const productId = searchParams.get('productId');
   // const count = searchParams.get('count');
@@ -30,11 +30,13 @@ return (
   <div>
     <ArrowLeft style={{ cursor: 'pointer' }} onClick={handleGoBack} />
     <p>รถเข็น</p>
-    {order && ( 
-        <p>
-          Order Placed: Product ID - {order.productId}, Count - {order.count}
-        </p>
-      )}
+    <ul>
+            {products.map((product, index) => (
+                <li key={index}>Product ID: {product.productId}, Count: {product.count}</li>
+            ))}
+        </ul>
+
+    
     {/* <button onClick={handleViewCart}>View Cart</button> */}
     {/* {order && ( // Conditionally render if order exists
       <pre>{JSON.stringify(order, null, 2)}</pre>

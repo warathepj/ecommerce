@@ -5,7 +5,7 @@ import { useContext } from 'react';
 import { useRouter } from 'next/navigation';
 
 import { useSearchParams } from 'next/navigation';
-import { useOrder } from '../../../context/OrderContext';
+import { useProducts } from '../../../context/ProductsContext';
 
 import Link from 'next/link';
 
@@ -28,7 +28,6 @@ export default function ProductDetail({ params }) {
   // const productName = searchParams.get('name');
   const [showModal, setShowModal] = useState(false);
   const [modalButtonText, setModalButtonText] = useState('');
-  const { order, setOrder } = useOrder();
   const { name } = useContext(ProductContext);
   // const [order, setOrder] = useOrder();
   // Fetch product details based on productId (you'll need to implement this)
@@ -111,13 +110,7 @@ export default function ProductDetail({ params }) {
       </div>
 
 
-      {
-        order && (
-          <p>
-            Order Placed: Product ID - {order.productId}, Count - {order.count}
-          </p>
-        )
-      }
+      
       <p>end</p>
       {/* Display other product details here */}
       <AddShoppingCart className="cursor-pointer" onClick={() => {
@@ -132,7 +125,6 @@ export default function ProductDetail({ params }) {
             productId={productId}
             buttonText={modalButtonText}  // Use dynamic button text
             onClose={handleCloseModal}
-            order={order}
             onOrderChange={handleOrderChange}
           />
         )

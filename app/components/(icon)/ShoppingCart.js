@@ -2,20 +2,25 @@
 // 'use client'
 
 {/*make notification badge at right top of app/components/(icon)/ShoppingCart.js*/ }
+import Link from 'next/link';
 import { useContext } from 'react';
-import { OrderContext } from '../../../context/OrderContext';
-import { OrderProvider } from '../../../context/OrderContext';
+import { useProducts } from '../../../context/ProductsContext';
+
 export default function ShoppingCart(props) {
-  console.log("OrderContext : ", OrderContext);
+  const { products, addProduct } = useProducts();
+
 // 
   // not reset exist app/components/(icon)/ShoppingCart.js/order but add to it, OrderContext is in context/OrderContext
-  const { order } = useContext(OrderContext);
+  // const { order } = useContext(OrderContext);
   // let order
   // const cartItemCount = 4; 
-  const cartItemCount = order ? order.count : 0; 
 
   return (
-    <div className="relative">
+    <>
+    <Link href="/cart">
+    {/* when click app/components/(icon)/ShoppingCart.js/ */}
+    <div className="relative cursor-pointer">
+      {/* go to /cart */}
       <svg 
         className="absolute top-0 right-2"
         xmlns="http://www.w3.org/2000/svg" 
@@ -43,11 +48,9 @@ export default function ShoppingCart(props) {
         {/* ... your SVG path here ... */}
       </svg>
 
-      {cartItemCount > 0 && (
-        <span className="absolute top-0 right-0 bg-red-500 text-white text-xs rounded-full px-2 py-1">
-          {cartItemCount}
-        </span>
-      )}
+      
     </div>
+    </Link>
+    </>
   );
 }

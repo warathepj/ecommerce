@@ -3,7 +3,7 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import Link from 'next/link';
 import { ProductProvider } from '../context/ProductContext';
-import { OrderProvider } from '../context/OrderContext';
+import { ProductsProvider } from '../context/ProductsContext';
 // import ShoppingCart from "./components/(icon)/ShoppingCart";
 
 const inter = Inter({ subsets: ["latin"] });
@@ -18,13 +18,13 @@ export default function RootLayout({ children }) {
     <html lang="en">
       <body className={inter.className}>
       <ProductProvider>
-      <OrderProvider>
+      <ProductsProvider>
       {/* <Link href="/cart"> */}
             {/* <ShoppingCart />  */}
             {/* Assuming ShoppingCart is a component */}
           {/* </Link> */}
         {children}
-      </OrderProvider>
+      </ProductsProvider>
         </ProductProvider>
       </body>
     </html>
