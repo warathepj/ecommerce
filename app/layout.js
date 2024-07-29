@@ -3,7 +3,9 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import Link from 'next/link';
 import { ProductProvider } from '../context/ProductContext';
-import { ProductsProvider } from '../context/ProductsContext';
+// import { ProductsProvider } from '../context/ProductsContext';
+import { UserProvider } from '../context/userContext';
+import { CartProvider } from '../context/CartContext';
 // import ShoppingCart from "./components/(icon)/ShoppingCart";
 
 const inter = Inter({ subsets: ["latin"] });
@@ -17,15 +19,19 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body className={inter.className}>
+      <UserProvider>
       <ProductProvider>
-      <ProductsProvider>
+      <CartProvider>
+      {/* <ProductsProvider> */}
       {/* <Link href="/cart"> */}
             {/* <ShoppingCart />  */}
             {/* Assuming ShoppingCart is a component */}
           {/* </Link> */}
         {children}
-      </ProductsProvider>
+        </CartProvider>
+      {/* </ProductsProvider> */}
         </ProductProvider>
+        </UserProvider>
       </body>
     </html>
   );

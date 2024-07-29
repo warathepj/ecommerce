@@ -4,10 +4,10 @@
 {/*make notification badge at right top of app/components/(icon)/ShoppingCart.js*/ }
 import Link from 'next/link';
 import { useContext } from 'react';
-import { useProducts } from '../../../context/ProductsContext';
+// import { useProducts } from '../../../context/ProductsContext';
 
 export default function ShoppingCart(props) {
-  const { products, addProduct } = useProducts();
+  // const { products, addProduct } = useProducts();
 
 // 
   // not reset exist app/components/(icon)/ShoppingCart.js/order but add to it, OrderContext is in context/OrderContext

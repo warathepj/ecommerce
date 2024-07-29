@@ -5,7 +5,7 @@ import { useContext } from 'react';
 import { useRouter } from 'next/navigation';
 
 import { useSearchParams } from 'next/navigation';
-import { useProducts } from '../../../context/ProductsContext';
+// import { useProducts } from '../../../context/ProductsContext';
 
 import Link from 'next/link';
 
@@ -16,6 +16,7 @@ import Modal from '@/app/components/Modal';
 import ShoppingCart from "../../components/(icon)/ShoppingCart";
 import ArrowLeft from "../../components/(icon)/ArrowLeft";
 import Button from '@/app/components/Button';
+import ProtectedRoute from '../../components/ProtectedRoute';
 
 
 
@@ -56,8 +57,10 @@ export default function ProductDetail({ params }) {
     router.push('/'); // Navigate to the root route
   };
   return (
+    // <ProtectedRoute>
+
     <div className="bg-red-100">
-      <ShoppingCart />
+      <ShoppingCart className="w-8 h-8" />
       <ArrowLeft style={{ cursor: 'pointer' }} onClick={handleGoBack} />
 
       <h1 className='bg-red-500'>Product Detail</h1>
@@ -113,7 +116,7 @@ export default function ProductDetail({ params }) {
       
       <p>end</p>
       {/* Display other product details here */}
-      <AddShoppingCart className="cursor-pointer" onClick={() => {
+      <AddShoppingCart className="cursor-pointer w-8 h-8" onClick={() => {
         setModalButtonText("เพิ่มไปยังรถเข็น"); // Set button text for "Add to Cart"
         setShowModal(true);
       }} />
@@ -130,5 +133,7 @@ export default function ProductDetail({ params }) {
         )
       }
     </div >
+    // </ProtectedRoute>
+
   );
 }

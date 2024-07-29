@@ -4,25 +4,25 @@
 
 import { useState } from 'react';
 
-export default function Qty({ onCountChange }) {
-  const [count, setCount] = useState(0);
+export default function Qty({ onQuantityChange }) {
+  const [quantity, setQuantity] = useState(0);
 
   const increment = () => {
-    setCount(count + 1);
-    onCountChange(count + 1); // Notify parent about count change
+    setQuantity(quantity + 1);
+    onQuantityChange(quantity + 1); // Notify parent about count change
   };
 
   const decrement = () => {
     
-if (count > 0) {
-      setCount(count - 1);
-      onCountChange(count - 1); // Notify parent about count change
+if (quantity > 0) {
+      setQuantity(quantity - 1);
+      onQuantityChange(quantity - 1); // Notify parent about count change
     }
   };
 
   return (
     <div>
-      <p>จำนวน: {count}</p>
+      <p>จำนวน: {quantity}</p>
       <button onClick={decrement}>-</button>
       <button onClick={increment}>+</button>
     </div>
