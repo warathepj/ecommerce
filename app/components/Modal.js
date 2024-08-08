@@ -1,6 +1,9 @@
 // app/components/Modal.js/
-//from app/components/Modal.js/product and context/CartContext
-// how to render product.productId in app/cart/page.js/pre tag
+
+//in app/components/Modal.js/ first time select productId: 1, selectedColor: ดำ.
+// second time select productId: 1, selectedColor: ขาว, when go to app/cart/page.js/
+// why selectedColor: ดำ (first time select) disappear.
+//CartContext is in context/CartContext.
 
 import { useState, useEffect, useContext } from 'react';
 // import { useProducts } from '../../context/ProductsContext';
@@ -9,13 +12,37 @@ import CartContext from '../../context/CartContext';
 import Color from "./Color";
 import Qty from "./Qty";
 import Button from './Button';
+import Counter from './Counter';
 
 export default function Modal({ buttonText, productId, onOrderChange, onClose }) {
-    // const { order, setOrder } = useOrder();
     const [quantity, setQuantity] = useState(0);
-    const { addCartItem } = useContext(CartContext);
-    // const { products, addProduct, selectedColor, setSelectedColor, productsWithDiscount, isLoading } = useProducts(); 
-    // from app/components/Modal.js/ and context/ProductsContext.js/
+  const { productsWithDiscount } = useContext(ProductContext);
+// update count to productsWithDiscount
+
+  console.log(
+    "productsWithDiscount from modal : ", productsWithDiscount
+  ); // ok, array of object, have discountPrice, color (all product)
+
+const productInCart = productsWithDiscount.find(product => product.id === productId);
+
+//in app/components/Modal.js/, list and render productInCart.color
+//in pre tag, reference file context/ProductContext.js/
+if (productInCart) {
+  console.log("productInCart from modal: ", productInCart); // ok only selected object
+  console.log("discountPrice from modal: ", productInCart.discountPrice); // ok
+} else {
+  console.log("Product with ID", productId, "not found in productsWithDiscount");
+}
+// from app/components/Modal.js/, state productInCart.discountPrice to context/CartContext.js/
+
+// to log discountPrice that have id === productId
+// productsWithDiscount is from context/ProductContext
+    
+    const { addCartItem, selectedColor } = useContext(CartContext);
+    //next js 14 in app/components/Modal.js/ have
+    const product = { productId, selectedColor, quantity };
+    // how to state product to context
+    // state app/components/Modal.js/addToCart to context/CartContext.js/
     // it error "" how to fix
     // console.log("selectedColor", selectedColor);
 
@@ -40,26 +67,26 @@ export default function Modal({ buttonText, productId, onOrderChange, onClose })
 // onClose();
 // console.log("setOrders", setOrders);
 
-// console.log("products in before return :", products); // array of only selected object, have discountPrice=undefined
 const handleAddToCart = () => {
-    // Assuming you have quantity and other product details available
-    //from context/CartContext.js render app/components/Modal.js/product
-    // in app/cart/page.js/pre tag
-    const product = { productId, quantity };
-    addCartItem?.(product);
-    onClose(); // Close the modal after adding to cart
-}
+    addCartItem({ productId, selectedColor, quantity });
+    onClose(); 
+// console.log("product in modal/handleAddToCart :", product); // object
+
+  }
 return (
     <div className='bg-blue-100'>
 
         <p>modal</p>
-        <p>Product ID from Modal: {productId}</p>
         {/* <img src={product.image} className='w-16'/> */}
         {/* <p className='pr-2 text-red-500'>฿{product.discountPrice} from modal</p> */}
         <p>คลัง: {Math.floor(Math.random() * (2000 - 20 + 1)) + 20}</p>
 
         <Color />
-        <p>Count from Modal: {quantity}</p>
+        {/* is in app/components/Modal.js/*/}
+        {/* Color is import from app/components/Color.js/ */}
+        {/* can not input to <input 
+          type="radio" />, how to fix */}
+        <Counter />
         <Qty onQuantityChange={setQuantity} />
         {/* when click app/components/Modal.js/ */}
         {/* 19 */}
@@ -68,51 +95,26 @@ return (
             {buttonText}
         </Button>
 
-        <ul>
-            {/* {products.map((product, index) => { */}
-            {/* console.log("products in map :", products); // array of only selected object, have discountPrice=undefined */}
-            {/* const calculatePrice = product.discountPrice; // Assuming discountPrice holds the final price */}
-            {/* const cost = product.count * calculatePrice;  */}
-            {/* return ( */}
-            {/* <li key={index}> */}
-            {/* <pre>product in li : {product}</pre> */}
-            {/* <pre>product.discountPrice in li : {product.discountPrice}</pre> */}
-            {/* Product ID: {product.productId}, Count: {product.count},  */}
-            {/* Price: {calculatePrice} */}
-            {/* Cost: {cost} */}
-            {/* <p>Selected Color: {selectedColor}</p> */}
-            {/* </li> */}
-            {/* ); */}
-            {/* })} */}
-        </ul>
+        <pre>Product ID from Modal: {productId}</pre>
+  {/* Reference: context/ProductContext.js */}
+{productInCart && productInCart.color.map((color, index) => (
+  <label key={index}>
+    <input 
+      type="radio" 
+      value={color} 
+      name="color" 
+      checked={selectedColor === color} 
+      onChange={(e) => setSelectedColor(e.target.value)} 
+    />
+    {color}
+  </label>
+))}
 
-
-        {/* THIS CODE CAL FIRST PRODUCT OK, BUT NEXT PRODUCT ADD PRICE INSTEAD FIRST PRODUCT */}
-        {/* of new productId, from */}
-        {/* <ul> */}
-        {/* {products.map((product, index) => ( */}
-        {/* <li key={index}>
-            Product ID: {product.productId}, Count: {product.count}, 
-            Price: {calculatePrice}
-            Cost: {cost}
-            <p>Selected Color: {selectedColor}</p>
-
-        </li> */}
-        {/* ))} */}
-        {/* exist calculatePrice is change, how to fix? */}
-        {/* </ul> */}
-        {/* why Price: {product.discountPrice} it's not working? */}
-
-        {/* <ul>
-            {products.map((product, index) => (
-                <li key={index}>Product ID: {product.productId}, Count: {product.count}</li>
-            ))}
-        </ul> */}
-        {/* THIS CODE CAL FIRST PRODUCT OK, BUT NEXT PRODUCT ADD PRICE INSTEAD FIRST PRODUCT */}
-
-
+        {/* from app/components/Modal.js/ set productId, selectedColor and*/}
+        {/* quantity in 1 object */}
+        <pre>Selected Color from Modal.js : {selectedColor}</pre>
+        <pre>Count from Modal: {quantity}</pre>
     </div>
-
 );
 
 }

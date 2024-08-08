@@ -1,37 +1,53 @@
-// Suggested code may be subject to a license. Learn more: ~LicenseLog:1584466391.
-// Suggested code may be subject to a license. Learn more: ~LicenseLog:1706074875.
 // context/CartContext.js/
-// Suggested code may be subject to a license. Learn more: ~LicenseLog:2499214005.
-// Suggested code may be subject to a license. Learn more: ~LicenseLog:2999946844.
-// Suggested code may be subject to a license. Learn more: ~LicenseLog:1589595377.
-// Suggested code may be subject to a license. Learn more: ~LicenseLog:1718385428.
-
 // context/CartContext.js
 "use client"
-import { createContext, useState, useEffect } from 'react';
+import { createContext, useState, useEffect, useCallback } from 'react';
 
 const CartContext = createContext();
 
 export
  const CartProvider = ({ children }) => {
   const [cartItems, setCartItems] = useState([]);
-
+  const [selectedColor, setSelectedColor] = useState('');
+  // const [addCartItem, setAddCartItem] = useState(null);
+ 
   const addCartItem = (product) => {
-    setCartItems(prevItems => {
-      // Check if the item already exists in the cart
-      const existingItemIndex = prevItems.findIndex(item => item.productId === product.productId);
-
-      if (existingItemIndex !== -1) {
-        // If item exists, update its quantity
-        const updatedItems = [...prevItems];
-        updatedItems[existingItemIndex].quantity += product.quantity;
-        return updatedItems;
-      } else {
-        // If item doesn't exist, add it to the cart
-        return [...prevItems, product];
-      }
-    });
+    const existingItemIndex = cartItems.findIndex(
+      (item) => item.productId === product.productId 
+      // (item) => item.productId === product.productId && item.selectedColor === product.selectedColor
+    );
+    if (existingItemIndex > -1) {
+      // Update quantity of existing item
+      const updatedCartItems = [...cartItems];
+      updatedCartItems[existingItemIndex].quantity += product.quantity;
+      setCartItems(updatedCartItems);
+    } else {
+      // Add new item to cart
+      setCartItems([...cartItems, product]);
+    }
   };
+
+  
+
+  const updateDiscountPrice = useCallback((productId, discountPrice) => {
+    setCartItems(prevItems =>
+      prevItems.map(item =>
+        item.productId === productId ? { ...item, discountPrice } : item
+      )
+    );
+  }, []);
+
+
+
+
+  // console.log("addCartItem from CartProvider :", addCartItem);
+
+  // const value = {
+  //   cartItems,
+  //   addCartItem,
+  //   setCartItems,
+  //   // ... other context values
+  // };
 
   const removeCartItem = (productId) => {
     setCartItems(prevItems => prevItems.filter(item => item.productId !== productId));
@@ -46,10 +62,16 @@ export
     addCartItem,
     removeCartItem,
     clearCart,
+    updateDiscountPrice,
+    setCartItems,
+    selectedColor,
+    setSelectedColor, 
   };
 
   return (
-    <CartContext.Provider value={contextValue}>
+    <CartContext.Provider 
+      value={
+        contextValue }>
       {children}
     </CartContext.Provider>
   );

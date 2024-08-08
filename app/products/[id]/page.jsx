@@ -51,7 +51,7 @@ export default function ProductDetail({ params }) {
   if (isLoading) {
     return <div>Loading products...</div>;
   }
-  console.log("productsWithDiscount : ", productsWithDiscount);
+  console.log("productsWithDiscount form products/[id] : ", productsWithDiscount);
   const product = productsWithDiscount?.find(prod => prod.id === productId);
   const handleGoBack = () => {
     router.push('/'); // Navigate to the root route
