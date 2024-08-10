@@ -10,7 +10,7 @@ export
   const [cartItems, setCartItems] = useState([]);
   const [selectedColor, setSelectedColor] = useState('');
   // const [addCartItem, setAddCartItem] = useState(null);
- 
+  const [count, setCount] = useState(0);
   const addCartItem = (product) => {
     const existingItemIndex = cartItems.findIndex(
       (item) => item.productId === product.productId 
@@ -65,7 +65,9 @@ export
     updateDiscountPrice,
     setCartItems,
     selectedColor,
-    setSelectedColor, 
+    setSelectedColor,
+    count, // Add count to context value
+    setCount,  
   };
 
   return (

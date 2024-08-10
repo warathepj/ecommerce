@@ -1,10 +1,5 @@
 // app/components/Modal.js/
 
-//in app/components/Modal.js/ first time select productId: 1, selectedColor: ดำ.
-// second time select productId: 1, selectedColor: ขาว, when go to app/cart/page.js/
-// why selectedColor: ดำ (first time select) disappear.
-//CartContext is in context/CartContext.
-
 import { useState, useEffect, useContext } from 'react';
 // import { useProducts } from '../../context/ProductsContext';
 import ProductContext from '../../context/ProductContext';
@@ -17,18 +12,18 @@ import Counter from './Counter';
 export default function Modal({ buttonText, productId, onOrderChange, onClose }) {
     const [quantity, setQuantity] = useState(0);
   const { productsWithDiscount } = useContext(ProductContext);
-// update count to productsWithDiscount
+  const { count } = useContext(CartContext);
+  let [productInCart, setProductInCart] = useState({ count: 0 });
 
   console.log(
     "productsWithDiscount from modal : ", productsWithDiscount
   ); // ok, array of object, have discountPrice, color (all product)
 
-const productInCart = productsWithDiscount.find(product => product.id === productId);
+productInCart = productsWithDiscount.find(product => product.id === productId);
 
-//in app/components/Modal.js/, list and render productInCart.color
-//in pre tag, reference file context/ProductContext.js/
 if (productInCart) {
-  console.log("productInCart from modal: ", productInCart); // ok only selected object
+  console.log("productInCart from modal: ", productInCart); 
+  // 9/8 ok only selected object
   console.log("discountPrice from modal: ", productInCart.discountPrice); // ok
 } else {
   console.log("Product with ID", productId, "not found in productsWithDiscount");
@@ -37,7 +32,9 @@ if (productInCart) {
 
 // to log discountPrice that have id === productId
 // productsWithDiscount is from context/ProductContext
-    
+
+
+
     const { addCartItem, selectedColor } = useContext(CartContext);
     //next js 14 in app/components/Modal.js/ have
     const product = { productId, selectedColor, quantity };
@@ -81,13 +78,13 @@ return (
         {/* <p className='pr-2 text-red-500'>฿{product.discountPrice} from modal</p> */}
         <p>คลัง: {Math.floor(Math.random() * (2000 - 20 + 1)) + 20}</p>
 
-        <Color />
+        {/* <Color /> */}
         {/* is in app/components/Modal.js/*/}
         {/* Color is import from app/components/Color.js/ */}
         {/* can not input to <input 
           type="radio" />, how to fix */}
         <Counter />
-        <Qty onQuantityChange={setQuantity} />
+        {/* <Qty onQuantityChange={setQuantity} /> */}
         {/* when click app/components/Modal.js/ */}
         {/* 19 */}
         {/* when second click on app/components/Modal.js/ */}
@@ -113,7 +110,14 @@ return (
         {/* from app/components/Modal.js/ set productId, selectedColor and*/}
         {/* quantity in 1 object */}
         <pre>Selected Color from Modal.js : {selectedColor}</pre>
-        <pre>Count from Modal: {quantity}</pre>
+
+{/* //in next js 14 app/components/Modal.js/ 
+have code */}
+        <pre>Count from Modal: {count}</pre>
+        {/* update count state to productInCart,
+        data in productInCart is {count: 0}*/}
+        <pre>productInCart.count from Modal: {productInCart.count}</pre> 
+        {/* ok from CartContext */}
     </div>
 );
 

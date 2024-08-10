@@ -10,14 +10,13 @@ const ProductContext = createContext();
 
 export const ProductProvider
   = ({ children }) => {
+    const [count, setCount] = useState(0);
     const [products, setProducts] = useState([
       { 
         id: "1", name: "สนีกเกอร์", 
         image: "https://images.unsplash.com/photo-1612942910539-9ff28b2e00d3?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D", 
         price: 3000, discount: 10, 
-        count: 0,
         color: ["ดำ", "ขาว", "น้ำเงิน"], 
-        selectedColor: "",
         descriptionHead: "ความสบายสไตล์มินิมอล สไตล์สำหรับทุกวัน", 
         description: "สวมสไตล์เรียบง่ายด้วยรองเท้าผ้าใบสไตล์มินิมอลของเรา รังสรรค์มาเพื่อคนยุคใหม่ที่ต้องการความสบายโดยไม่ต้องแลกกับแฟชั่น, รองเท้าคู่นี้จึงเหมาะสำหรับทุกโอกาสสบายๆ ส่วนบนทำจากวัสดุสังเคราะห์โฉบเฉี่ยวให้สัมผัสที่ระบายอากาศได้ดีและมีน้ำหนักเบา, ในขณะที่พื้นรองเท้าชั้นในแบบลดแรงกระแทกให้ความสบายตลอดวัน ออกแบบมาให้มีความสวยงามสะอาดตาและเรียบง่าย, รองเท้าผ้าใบคู่นี้จึงเข้าคู่กับตู้เสื้อผ้าของคุณได้อย่างง่ายดาย สัมผัสประสบการณ์การผสมผสานที่ลงตัวระหว่างรูปแบบและฟังก์ชัน" },
       { 
@@ -56,7 +55,7 @@ export const ProductProvider
     }, []);
 
     return (
-      <ProductContext.Provider value={{ products, productsWithDiscount, isLoading }}>
+      <ProductContext.Provider value={{ products, productsWithDiscount, isLoading, count, setCount }}>
         {children}
       </ProductContext.Provider>
     );
