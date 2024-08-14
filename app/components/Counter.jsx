@@ -1,26 +1,27 @@
 // app/components/Counter
+// create counter in app/components/Counter
 
-//state count from 
-// app/components/Counter.jsx to context/CartContext.js
-// import { useState } from 'react';
-import { useContext } from 'react';
-import CartContext from '../../context/CartContext';
+// app/components/Counter.jsx
+import { useState } from 'react';
 
-export default function Counter() {
-  const { count, setCount } = useContext(CartContext);
+export default function Counter({ onCountChange }) {
+  const [count, setCount] = useState(0); 
 
   const increment = () => {
-    setCount(count + 1);
+    const newCount = count + 1;
+    setCount(newCount);
+    onCountChange(newCount); 
   };
 
   const decrement = () => {
     if (count > 0) {
-      setCount(count - 1);
+      const newCount = count - 1;
+      setCount(newCount);
+      onCountChange(newCount);
     }
   };
 
-  
-return (
+  return (
     <div>
       <p>Count: {count}</p>
       <button onClick={decrement}>-</button>
@@ -28,7 +29,3 @@ return (
     </div>
   );
 }
-
-
-
-  
