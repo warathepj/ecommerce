@@ -94,11 +94,7 @@ total in pre tag, total is summary of all amount*/}
     ยืนยัน 
   </Button>
 </Link>
-{/* //when click app/cart/page.js/ */}
-        <Button>
-          ยืนยัน
-        </Button>
-{/* go to /address, reference app/components/Button */}
+
       </div>
 
       {/* <pre>

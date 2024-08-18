@@ -6,6 +6,7 @@ import { ProductProvider } from '../context/ProductContext';
 // import { ProductsProvider } from '../context/ProductsContext';
 import { UserProvider } from '../context/userContext';
 import { CartProvider } from '../context/CartContext';
+import { AddressProvider } from '../context/AddressContext';
 // import ShoppingCart from "./components/(icon)/ShoppingCart";
 
 const inter = Inter({ subsets: ["latin"] });
@@ -27,7 +28,9 @@ export default function RootLayout({ children }) {
             {/* <ShoppingCart />  */}
             {/* Assuming ShoppingCart is a component */}
           {/* </Link> */}
-        {children}
+          <AddressProvider>
+          {children}
+        </AddressProvider>
         </CartProvider>
       {/* </ProductsProvider> */}
         </ProductProvider>
