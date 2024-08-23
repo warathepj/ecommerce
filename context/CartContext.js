@@ -1,12 +1,11 @@
 // context/CartContext.js/
-// context/CartContext.js
 "use client"
 import { createContext, useState, useEffect, useCallback } from 'react';
 
 const CartContext = createContext();
 
-export
- const CartProvider = ({ children }) => {
+export const CartProvider = ({ children }) => {
+   const [sum, setSum] = useState(0);
   const [productInCart, setProductInCart] = useState([]);
 
   const addProductToCart = (product) => {
@@ -75,10 +74,18 @@ export
     //count, // Add count to context value
     //setCount,  
   // };
+  useEffect(() => {
+    const newSum = productInCart.reduce(
+      (sum, product) => sum + (product.count * product.modalPrice), 0
+    );
+    setSum(newSum);
+  }, [productInCart]); 
 
   const contextValue = {
     productInCart,
     setProductInCart,
+    sum,
+    setSum
     // ... other context values
   };
   return (

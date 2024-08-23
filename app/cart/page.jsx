@@ -13,7 +13,7 @@ export default function Cart() {
 
   const router = useRouter();
   // const { cartItems, updateDiscountPrice } = useContext(CartContext);
-  const { productInCart } = useContext(CartContext);
+  const { productInCart, sum } = useContext(CartContext);
   const { products } = useContext(ProductContext);
 
   console.log("productInCart from cart :", productInCart);
@@ -76,15 +76,17 @@ export default function Cart() {
   ))}
 </pre>
 <pre>.....</pre>
-{/* in app/cart/page.js/, create code for render 
-total in pre tag, total is summary of all amount*/}
 
-<pre style={{color: 'red'}}>
+<pre style={{ color: 'red' }}>
+        ยอดรวมทั้งหมด (฿): {sum}
+      </pre>
+{/* from app/cart/page.js/*/}
+{/* <pre style={{color: 'red'}}>
   ยอดรวมทั้งหมด (฿): {
     productInCart.reduce(
       (sum, product) => sum + (product.count * product.modalPrice), 0)}
-  </pre>
-
+  </pre> */}
+{/* state sum to context/CartContext.js */}
 
       <pre>--------DEBUG end---------</pre>
       <div>
