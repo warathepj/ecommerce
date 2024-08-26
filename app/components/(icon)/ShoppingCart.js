@@ -22,7 +22,9 @@ export default function ShoppingCart(props) {
     <div className="relative cursor-pointer">
       {/* go to /cart */}
       <svg 
-        className="absolute top-0 right-2"
+        className="absolute top-0 right-2 w-8 h-8 text-yellow-600" 
+        fill="none" 
+        stroke="currentColor"
         xmlns="http://www.w3.org/2000/svg" 
         width="1em" 
         height="1em" 

@@ -10,7 +10,7 @@ export default function Recommend() {
     return <div>Loading recommendations...</div>;
   }
   return (
-    <div className="p-1 bg-green-200 text-green-900">
+    <div className="p-1 bg-green-200 text-green-700">
       <p>สินค้าแนะนำประจำวัน</p> {/* Added the 'r' within a p tag */}
       {/* Some content here */}
       <div className="grid grid-cols-2 gap-1">

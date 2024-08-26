@@ -10,12 +10,12 @@ import ShoppingCart from "./components/(icon)/ShoppingCart";
 import Recommend from "./components/Recommend";
 import { redirect } from 'next/navigation';
 
-  
+
 export default function Home() {
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(true);
   // redirect('/signup');
-  
+
   useEffect(() => {
     setTimeout(() => {
       setIsLoading(false); // Set loading to false after 1 second
@@ -27,20 +27,12 @@ export default function Home() {
 
   return (
     // <ProtectedRoute>
-    
     <div class="">
-    {/* <div className='absolute top-0 left-0'>
+      {/* <div className='absolute top-0 left-0'>
       <LoginModal />
       </div> */}
-      <p>Hello</p>
-{/* //when click app/page.js */}
-<Link href="/cart" style={{cursor: 'pointer'}}>
- {/* Wrap with Link */}
-      <ShoppingCart /> 
-    </Link>
-      {/* go to /cart */}
-      <Recommend />
-      
+        <ShoppingCart />
+        <Recommend />
     </div>
     // </ProtectedRoute>
   )

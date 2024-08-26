@@ -59,8 +59,8 @@ export default function ProductDetail({ params }) {
   return (
     // <ProtectedRoute>
 
-    <div className="bg-red-100">
-      <ShoppingCart className="w-8 h-8" />
+    <div className="bg-green-200">
+      <ShoppingCart />
       <ArrowLeft style={{ cursor: 'pointer' }} onClick={handleGoBack} />
 
       <h1 className='bg-red-500'>Product Detail</h1>
