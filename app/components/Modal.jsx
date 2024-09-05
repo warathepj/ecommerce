@@ -1,6 +1,6 @@
 // app/components/Modal.js/
 // props count from app/components/Counter.jsx/ to 
-// app/components/Modal.js/
+// 
 
 import { useState, useEffect, useContext } from 'react';
 // import { useProducts } from '../../context/ProductsContext';
@@ -16,9 +16,12 @@ export default function Modal({ buttonText, productId, onOrderChange, onClose })
   const { productInCart, setProductInCart } = useContext(CartContext);
   const { addProductToCart } = useContext(CartContext);
   const [selectedColor, setSelectedColor] = useState('');
+  const [error, setError] = useState('');
   // const { cartItems, setCartItems } = useContext(CartContext);
   // let [productInCart, setProductInCart] = useState({ count: 0 });
   const [countFromCounter, setCountFromCounter] = useState(0);
+  let [stockRemain, setStockRemain] = useState(0);
+  const [isCounterDisabled, setIsCounterDisabled] = useState(false);
   const handleCountChange = (newCount) => {
     console.log("New count:", newCount);
     // Do something with the new count
@@ -38,13 +41,16 @@ export default function Modal({ buttonText, productId, onOrderChange, onClose })
   // }
   // from app/components/Modal.js/, state productInCart.discountPrice to context/CartContext.js/
 
-  
+
   const product = productsWithDiscount?.find(prod => prod.id === productId);
   console.log("product from modal : ", product); // 11/8 ok selected object
 
+  const id = product.id;
   const name = product.name;
   const modalPrice = product.discountPrice;
+  const stock = product.stock;
   const image = product.image;
+  // console.log("@@@@@@@@@store : ", store);
   console.log("modalPrice : ", modalPrice);
   //productInCart is an array in context/CartContext.js/, 
   // when call app/components/Modal.js/
@@ -56,9 +62,20 @@ export default function Modal({ buttonText, productId, onOrderChange, onClose })
     };
     console.log("productInModal from modal : ", productInModal);
     //12/8 ok it object
-    setProductInCart(prevItems => [...prevItems, productInModal]);
+    if (!selectedColor) {
+      setError('คุณยังไม่ได้เลือกสี');
+    } else if (!countFromCounter) {
+      setError('คุณยังไม่ได้ระบุจำนวนสินค้า');
+
+    } else {
+      // Proceed with adding to cart
+      setError('');
+      onClose();
+      // Your add to cart logic here
+      setProductInCart(prevItems => [...prevItems, productInModal]);
+    }
     // addProductToCart(productInModal); // Add product to CartContext
-    onClose(); // Close the modal
+    // onClose(); // Close the modal
   };
   // const handleAddToCart = () => {
   //in next js 14,state app/components/Modal.js/ 
@@ -76,7 +93,7 @@ export default function Modal({ buttonText, productId, onOrderChange, onClose })
   //state app/components/Modal.js/ 
   // and push to array in context/CartContext
 
-  
+
 
   //   const product = productsWithDiscount?.find(prod => prod.id === productId);
   // const calculatePrice = product.discountPrice;
@@ -93,30 +110,47 @@ export default function Modal({ buttonText, productId, onOrderChange, onClose })
   // onClose();
   // console.log("setOrders", setOrders);
 
+  
+  useEffect(() => {
+    setStockRemain(stock - countFromCounter);
+  }, [stock, countFromCounter]);
+
   return (
-    <div className='bg-blue-100'>
+    <div className='bg-blue-100 p-2'>
+      <div className="modal">
+        {/* <pre>product.id: {product.id}</pre> */}
+      {/* <p>stock from context: {stock}</p> */}
+      <p>คลัง: {stockRemain}</p>
+      <Counter 
+        onCountChange={setCountFromCounter} 
+        disabled={stockRemain === 0}
+      />
+    </div>
+      {/*from app/components/Modal.js/ */}
+      
+      {/* {stockRemain = 0 ? (
+        <>
+          <pre>สินค้าหมด</pre>
+          <Counter disabled={true} onCountChange={setCountFromCounter} />
+        </>
+      ) : (
+        <Counter disabled={isCounterDisabled} onCountChange={setCountFromCounter} />
+      )} */}
+      {/* initial can click Counter */}
+      {/* if stockRemain < 0 then disable button and render
+      "สินค้าหมด" in pre tag*/}
 
-      <p>modal</p>
-      {/* <img src={product.image} className='w-16'/> */}
-      <p>คลัง: {Math.floor(Math.random() * (2000 - 20 + 1)) + 20}</p>
 
-      {/* <Color /> */}
-      {/* is in app/components/Modal.js/*/}
-      {/* Color is import from app/components/Color.js/ */}
-      {/* can not input to <input 
-          type="radio" />, how to fix */}
-      <Counter onCountChange={setCountFromCounter} />
       {/* <Qty onQuantityChange={setQuantity} /> */}
       {/* when click app/components/Modal.js/ */}
       {/* 19 */}
       {/* when second click on app/components/Modal.js/ */}
-      <Button onClick={handleAddToCart}>
-        {buttonText}
-      </Button>
+
 
       {/* Reference: context/ProductContext.js */}
-      {product && product.color.map((color, index) => (
-        <label key={index}>
+      <div className='ml-2 mb-3 flex flex-row gap-4'>
+      {/* {colors.map((color) => (
+        <label key={color}>
           <input
             type="radio"
             value={color}
@@ -126,24 +160,49 @@ export default function Modal({ buttonText, productId, onOrderChange, onClose })
           />
           {color}
         </label>
-      ))}
+      ))} */}
+        {product && product.color.map((color, index) => (
+          <label key={index}>
+            <input
+              type="radio"
+              value={color}
+              name="color"
+              checked={selectedColor === color}
+              onChange={(e) => setSelectedColor(e.target.value)}
+            />
+            {color}
+          </label>
+        ))}
+      </div>
+
 
       {/* DEBUG */}
-      <pre>--------DEBUG---------</pre>
-      <pre>Product ID from Modal: {productId}</pre>
-      <pre>name from Modal: {product.name}</pre>
+      {/* <pre>Product ID from Modal: {productId}</pre> */}
+      <p className='mt-3'>ชื่อสินค้า: {product.name}</p>
 
-      {/* from app/components/Modal.js/ set productId, selectedColor and*/}
-      {/* quantity in 1 object */}
-      <pre>Selected Color from Modal.js : {selectedColor}</pre>
+      <p>สี : {selectedColor}</p>
 
-      {/* //in next js 14 app/components/Modal.js/ 
-have code */}
-      <pre className='pr-2 text-red-500'>฿{product.discountPrice} from modal</pre>
-      <pre>Count from Modal: {countFromCounter}</pre>
-     
-      <pre>----------DEBUG-----------</pre>
-
+      {/* //in app/components/Modal.js/p tag, render
+ sum of product.discountPrice * count */}
+      <p className='pr-2'>฿{product.discountPrice}</p>
+      <p>จำนวนสินค้า: {countFromCounter}</p>
+      <p className='pr-2 text-red-500'>รวมยอด ฿{product.discountPrice * countFromCounter}</p>
+      {/* in next js 14, have app/components/Modal.js/, and have
+  const [selectedColor, setSelectedColor] = useState('');
+  and have
+  <input
+              type="radio"
+              value={color}
+              name="color"
+              checked={selectedColor === color}
+              onChange={(e) => setSelectedColor(e.target.value)}
+            />
+        / if not selectedColor when press*/}
+      <Button onClick={handleAddToCart}> 
+  {buttonText}
+</Button>
+{error && <p className="text-red-500">{error}</p>}
+{/* render "คุณยังไม่ได้เลือกสี" */}
     </div>
   );
 

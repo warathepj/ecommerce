@@ -1,18 +1,28 @@
 // app/components/(icon)/ShoppingCart.js/
-// 'use client'
+'use client'
 
 {/*make notification badge at right top of app/components/(icon)/ShoppingCart.js*/ }
 import Link from 'next/link';
 import { useContext } from 'react';
+import CartContext from '../../../context/CartContext';
+
 // import { useProducts } from '../../../context/ProductsContext';
 
 export default function ShoppingCart(props) {
+  const { productInCart } = useContext(CartContext);
+  // console.log("WWWWWWWWWWWWWWWWWWWWWWWWWWproductInCart :", productInCart);
+  // ok it array of object
+//how to count array in app/components/(icon)/ShoppingCart.js/productInCart
+
   // const { products, addProduct } = useProducts();
 
 // 
   // not reset exist app/components/(icon)/ShoppingCart.js/order but add to it, OrderContext is in context/OrderContext
   // const { order } = useContext(OrderContext);
   // let order
+  //from app/components/(icon)/ShoppingCart.js/ state
+  const cartItemCount = productInCart.length;
+  // to context/CartContext
   // const cartItemCount = 4; 
 
   return (
@@ -49,7 +59,11 @@ export default function ShoppingCart(props) {
       >
         {/* ... your SVG path here ... */}
       </svg>
-
+      {cartItemCount > 0 && (
+        <div className="absolute top-0 right-0 w-5 h-5 bg-red-500 rounded-full text-white text-center text-xs font-bold flex items-center justify-center">
+          {cartItemCount}
+        </div>
+      )}
       
     </div>
     </Link>

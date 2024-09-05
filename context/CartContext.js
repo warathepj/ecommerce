@@ -4,6 +4,8 @@ import { createContext, useState, useEffect, useCallback } from 'react';
 
 const CartContext = createContext();
 
+
+
 export const CartProvider = ({ children }) => {
    const [sum, setSum] = useState(0);
   const [productInCart, setProductInCart] = useState([]);
@@ -54,9 +56,7 @@ export const CartProvider = ({ children }) => {
   //   // ... other context values
   // };
 
-  // const removeCartItem = (productId) => {
-  //   setCartItems(prevItems => prevItems.filter(item => item.productId !== productId));
-  // };
+  
 
   // const clearCart = () => {
   //   setCartItems([]);
@@ -88,8 +88,9 @@ export const CartProvider = ({ children }) => {
     setSum
     // ... other context values
   };
+
   return (
-    <CartContext.Provider value={contextValue}>
+    <CartContext.Provider value={{ contextValue, productInCart, setProductInCart, sum, setSum }}>
       {children}
     </CartContext.Provider>
   );

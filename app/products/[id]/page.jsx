@@ -16,6 +16,7 @@ import Modal from '@/app/components/Modal';
 import ShoppingCart from "../../components/(icon)/ShoppingCart";
 import ArrowLeft from "../../components/(icon)/ArrowLeft";
 import Button from '@/app/components/Button';
+import Loading from '@/app/components/Loading';
 import ProtectedRoute from '../../components/ProtectedRoute';
 
 
@@ -49,7 +50,7 @@ export default function ProductDetail({ params }) {
 
   // ... fetch product data and then:
   if (isLoading) {
-    return <div>Loading products...</div>;
+    return <Loading/>;
   }
   console.log("productsWithDiscount form products/[id] : ", productsWithDiscount);
   const product = productsWithDiscount?.find(prod => prod.id === productId);
@@ -59,12 +60,11 @@ export default function ProductDetail({ params }) {
   return (
     // <ProtectedRoute>
 
-    <div className="bg-green-200">
-      <ShoppingCart />
+    <div className="bg-green-200 p-2">
       <ArrowLeft style={{ cursor: 'pointer' }} onClick={handleGoBack} />
 
-      <h1 className='bg-red-500'>Product Detail</h1>
-      <p>Product ID: {productId}</p>
+      <h1 className='text-2xl mb-4 text-green-700'>รายละเอียดสินค้า</h1>
+      {/* <p>Product ID: {productId}</p> */}
       <img src={product?.image} alt='Product Image' />
 
       <div className='flex flex-row justify-between'>
@@ -77,7 +77,7 @@ export default function ProductDetail({ params }) {
             {product.discount > 0 && (
               <>
                 <p className='pr-2 text-red-500'>฿{product.discountPrice}</p>
-                <p className='pr-2 line-through'>{product.price}</p>
+                <p className='pr-2 line-through text-green-700'>{product.price}</p>
                 <p className='text-red-500'>-{product.discount}%</p>
               </>
             )}
@@ -89,7 +89,7 @@ export default function ProductDetail({ params }) {
           </div>
         </div>
         {/* <div className='flex flex-row justify-between'> */}
-          <p>ขายแล้ว {Math.floor(Math.random() * 10000) + 1 > 999 ? (Math.round((Math.floor(Math.random() * 10000) + 1) / 1000 * 10) / 10).toFixed(1) + " พัน" : Math.floor(Math.random() * 10000) + 1}</p>
+          <p className='text-green-700'>ขายแล้ว {Math.floor(Math.random() * 10000) + 1 > 999 ? (Math.round((Math.floor(Math.random() * 10000) + 1) / 1000 * 10) / 10).toFixed(1) + " พัน" : Math.floor(Math.random() * 10000) + 1}</p>
 
           {/* <p className='text-red-500'>-{product.discount}%</p> */}
         {/* </div> */}
@@ -99,28 +99,29 @@ export default function ProductDetail({ params }) {
     </div> */}
 
       {product ? (
-        <p>{product.name}</p>
+        <p className='text-green-700'>{product.name}</p>
       ) : (
-        <p>Product not found.</p>
+        <p className='text-red-500'>Product not found.</p>
       )
       }
-      <p>{product.descriptionHead}</p>
+      <p className='text-green-700'>{product.descriptionHead}</p>
 
-      <div>
+      <div className='mb-3'>
         {product.description.split(',').map((item, index) => (
-          <p key={index} className="indent-description">{item}</p>
+          <p key={index} className="indent-description text-green-700">{item}</p>
         ))}
       </div>
-
-
-      
-      <p>end</p>
       {/* Display other product details here */}
-      <AddShoppingCart className="cursor-pointer w-8 h-8" onClick={() => {
-        setModalButtonText("เพิ่มไปยังรถเข็น"); // Set button text for "Add to Cart"
-        setShowModal(true);
-      }} />
-      <Button onClick={handleBuyButtonClick}>ซื้อสินค้า</Button>
+      
+        <div className="ml-4">
+      <AddShoppingCart 
+        onClick={() => {
+          setModalButtonText("เพิ่มไปยังรถเข็น"); // Set button text for "Add to Cart"
+          setShowModal(true);
+        }} 
+      />
+      </div>
+      {/* <Button onClick={handleBuyButtonClick}>ซื้อสินค้า</Button> */}
 
       {
         showModal && (

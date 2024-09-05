@@ -22,8 +22,9 @@ const router = useRouter();
   };
 
   return (
-    <div>
-      <pre>--------DEBUG start---------</pre>
+    <div className='flex flex-col p-2 mt-4 gap-4'>
+      <h1>ที่อยู่สำหรับจัดส่งสินค้า</h1>
+
       <input 
         type="text" 
         placeholder="Name" 
@@ -39,8 +40,6 @@ const router = useRouter();
 {/* when click app/address/page.jsx */}
       <Button onClick={handleClick}>ยืนยัน</Button>
       {/* go to /order */}
-      <pre>--------DEBUG end---------</pre>
-      <h1>address</h1>
     </div>
   );
 }

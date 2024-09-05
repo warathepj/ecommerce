@@ -1,12 +1,13 @@
 // app/test1/page.js
    'use client';
    import { useSession } from 'next-auth/react';
+   import Loading from '@/app/components/Loading';
 
    function ClientComponent() {
        const { data: session, status } = useSession();
 
        if (status === 'loading') {
-           return <p>Loading...</p>;
+           return <Loading/>;
        }
 
        if (status === 'authenticated') {

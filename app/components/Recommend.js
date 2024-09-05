@@ -1,5 +1,6 @@
 // app/components/Recommend.js
 import Card from "./Card";
+import Loading from "./Loading";
 import { useContext } from 'react';
      import ProductContext from '../../context/ProductContext';
      import Link from 'next/link';
@@ -7,13 +8,13 @@ import { useContext } from 'react';
 export default function Recommend() {
   const { productsWithDiscount, isLoading } = useContext(ProductContext);
   if (isLoading) {
-    return <div>Loading recommendations...</div>;
+    return <Loading/>;
   }
   return (
-    <div className="p-1 bg-green-200 text-green-700">
+    <div className="p-2 bg-green-200 text-green-700">
       <p>สินค้าแนะนำประจำวัน</p> {/* Added the 'r' within a p tag */}
       {/* Some content here */}
-      <div className="grid grid-cols-2 gap-1">
+      <div className="grid grid-cols-2 gap-2">
       {productsWithDiscount.map(product => (
           <Link key={product.id} href={`/products/${product.id}`}> 
             <Card 

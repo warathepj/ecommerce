@@ -54,32 +54,31 @@ export default function Cart() {
   };
 
   return (
-    <div>
-      <pre>--------DEBUG start---------</pre>
+    <div className='bg-green-200 p-2'>
+      <p>รถเข็น</p>
+
       {/*productInCart: {productId: '1', name: 'สนีกเกอร์', count: 1, 
         modalPrice: 2700, selectedColor: 'น้ำเงิน'} */}
 
  {/*loop and render amount in app/cart/page.js/pre tag
  amount is product.count * product.modalPrice */}
- <pre>.....</pre>
-<pre>
   {productInCart.map((product, index) => (
-    <div key={index}>
+    <div 
+      key={index}
+      className='mt-4'
+    >
       <img src={product?.image} alt='Product Image' width="60px" />
-      <pre>image: {product.image}</pre>
-      <pre>ชื่อสินค้า: {product.name}</pre>
-      <pre>จำนวน: {product.count}</pre>
-      <pre>ราคาสินค้า: {product.modalPrice}</pre>
-      <pre>สี: {product.selectedColor}</pre>
-      <pre>฿: {product.count * product.modalPrice}</pre>
+      <p>ชื่อสินค้า: {product.name}</p>
+      <p>จำนวน: {product.count}</p>
+      <p>ราคาสินค้า: {product.modalPrice}</p>
+      <p>สี: {product.selectedColor}</p>
+      <p>฿: {product.count * product.modalPrice}</p>
     </div>
   ))}
-</pre>
-<pre>.....</pre>
 
-<pre style={{ color: 'red' }}>
+<p style={{ color: 'red' }}>
         ยอดรวมทั้งหมด (฿): {sum}
-      </pre>
+      </p>
 {/* from app/cart/page.js/*/}
 {/* <pre style={{color: 'red'}}>
   ยอดรวมทั้งหมด (฿): {
@@ -88,7 +87,6 @@ export default function Cart() {
   </pre> */}
 {/* state sum to context/CartContext.js */}
 
-      <pre>--------DEBUG end---------</pre>
       <div>
         {/* ... your cart page content ... */}
         <Link href="/address"> 
@@ -109,7 +107,6 @@ export default function Cart() {
         ))}
       </pre> */}
       <ArrowLeft style={{ cursor: 'pointer' }} onClick={handleGoBack} />
-      <p>รถเข็น</p>
 
     </div>
   )

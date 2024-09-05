@@ -6,9 +6,9 @@
   --background: #77eb98;
   --text: #094413;
 }
-* {
+/* * {
   border: 1px solid red; 
-}
+} */
 body {
   color: var(--text);
   background-color: var(--background);
