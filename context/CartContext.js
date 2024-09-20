@@ -1,6 +1,8 @@
 // context/CartContext.js/
 "use client"
 import { createContext, useState, useEffect, useCallback } from 'react';
+import useLocalStorage from 'use-local-storage';
+
 
 const CartContext = createContext();
 
@@ -8,11 +10,14 @@ const CartContext = createContext();
 
 export const CartProvider = ({ children }) => {
    const [sum, setSum] = useState(0);
-  const [productInCart, setProductInCart] = useState([]);
+  const [productInCart, setProductInCart] = useLocalStorage('productInCart', []);
+
+  // const [productInCart, setProductInCart] = useState([]);
 
   const addProductToCart = (product) => {
     setProductInCart(product); 
   };
+
   // const [cartItems, setCartItems] = useState([]);
   // const [selectedColor, setSelectedColor] = useState('');
   // const [addCartItem, setAddCartItem] = useState(null);

@@ -18,8 +18,8 @@ export default function Order() {
     <div className="flex flex-col items-center justify-center">
       {/* with tailwind css */}
       <h1 className='mb-4 mt-4'>สั่งซื้อสินค้า</h1>
-      <p>ชื่อ: {name}</p>
-      <p className='mb-4'>ที่อยู่สำหรับจัดส่งสินค้า: {address}</p>
+      <p className='mb-4 break-words whitespace-normal overflow-hidden w-80'>ชื่อ: {name}</p>
+      <p className='mb-4 break-words whitespace-normal overflow-hidden w-80'>ที่อยู่สำหรับจัดส่งสินค้า: {address}</p>
       <Link href="/address"> 
       <div >
 

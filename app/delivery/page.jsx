@@ -1,6 +1,6 @@
 // app/delivery/page.jsx
 "use client"
-import { useEffect, useContext, useCallback } from 'react';
+import { useState, useEffect, useContext, useCallback } from 'react';
 import CartContext from '../../context/CartContext';
 import ProductContext from '../../context/ProductContext';
 import AddressContext from '../../context/AddressContext';
@@ -15,9 +15,11 @@ export default function Delivery() {
   const { name, address } = useContext(AddressContext);
   const { cartItemCount } = useContext(CartContext);
   // console.log("WWWWWWWWWWWWWWWWWWWWWWWWWWcartItemCount :", cartItemCount);
-  const { Delivery } = useContext(DeliveryContext);
-  console.log("////////////////////Delivery :", Delivery);
+  const { delivery } = useContext(DeliveryContext);
+  console.log(",,,,,,,,,,,delivery: ", delivery);
+  const [deliverySum, setSum] = useState(0);
 
+  
 
 
   // Calculate the date 4 days from now
@@ -35,6 +37,12 @@ export default function Delivery() {
      setProductInCart([]);
      }, [setProductInCart]);
 
+     useEffect(() => {
+      const newSum = delivery.reduce(
+        (deliverySum, product) => deliverySum + (product.quantity * product.price), 0
+      );
+      setSum(newSum);
+    }, [delivery]); 
   //////////
 
     return (
@@ -46,6 +54,24 @@ export default function Delivery() {
  amount is product.count * product.modalPrice */}
  <pre>รายการสินค้าที่สั่งซื้อ</pre>
 
+<pre>
+  {delivery.map((product, index) => (
+    <div key={index}>
+      <img src={product?.image} alt='Product Image' width="60px" />
+      {/* <pre>image: {product.image}</pre> */}
+      <pre>ชื่อสินค้า: {product.name}</pre>
+
+{/* quantity: product.count,
+      price: product.modalPrice,
+      color: product.selectedColor */}
+
+      <pre>จำนวน: {product.quantity}</pre>
+      <pre>ราคาสินค้า: {product.price}</pre>
+      <pre>สี: {product.color}</pre>
+      <pre className='mb-4'>฿: {product.quantity * product.price}</pre>
+    </div>
+  ))}
+</pre>
 <pre>
   {productInCart.map((product, index) => (
     <div key={index}>
@@ -61,7 +87,7 @@ export default function Delivery() {
 </pre>
 
 <p className='text-red-500 mb-4'>
-        ยอดรวมทั้งหมด (฿): {sum}
+        ยอดรวมทั้งหมด (฿): {deliverySum}
       </p>
 {/* from app/cart/page.js/*/}
 {/* <pre style={{color: 'red'}}>
@@ -71,8 +97,8 @@ export default function Delivery() {
   </pre> */}
 {/* state sum to context/CartContext.js */}
 <p>ที่อยู่สำหรับจัดส่งสินค้า</p>
-<p>ชื่อ: {name}</p>
-      <p className='mb-4'>ที่อยู่: {address}</p>
+<p className="mb-4 break-words whitespace-normal overflow-hidden w-80">ชื่อ: {name}</p>
+      <p className='mb-4 break-words whitespace-normal overflow-hidden w-80'>ที่อยู่: {address}</p>
       <p className='mb-4'>สินค้าจะถึงภายในวันที่: {formattedDate}</p>
       <Link href="/">
         <Button>เลือกซื้อสินค้าอื่นๆ</Button>

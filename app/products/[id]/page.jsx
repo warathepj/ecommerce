@@ -67,7 +67,7 @@ export default function ProductDetail({ params }) {
       {/* <p>Product ID: {productId}</p> */}
       <img src={product?.image} alt='Product Image' />
 
-      <div className='flex flex-row justify-between'>
+      <div className='flex flex-row justify-between my-4'>
         <div className='flex flex-row justify-between'>
 
           {/* <p className='pr-2 text-red-500'>฿{product.discountPrice}</p>  */}
@@ -99,12 +99,12 @@ export default function ProductDetail({ params }) {
     </div> */}
 
       {product ? (
-        <p className='text-green-700'>{product.name}</p>
+        <p className='text-green-700 mb-1'>{product.name}</p>
       ) : (
         <p className='text-red-500'>Product not found.</p>
       )
       }
-      <p className='text-green-700'>{product.descriptionHead}</p>
+      <p className='text-green-700 mb-1'>{product.descriptionHead}</p>
 
       <div className='mb-3'>
         {product.description.split(',').map((item, index) => (
