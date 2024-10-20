@@ -1,8 +1,7 @@
-"use client"
 // context/AddressContext.js
+"use client"
 import { createContext, useState, useEffect } from 'react';
 
-// Create the Address Context
 const AddressContext = createContext();
 
 // AddressProvider component to wrap around the application
@@ -14,7 +13,6 @@ export function AddressProvider({ children }) {
   useEffect(() => {
     const storedName = localStorage.getItem('name');
     const storedAddress = localStorage.getItem('address');
-
     if (storedName) setName(storedName);
     if (storedAddress) setAddress(storedAddress);
   }, []);

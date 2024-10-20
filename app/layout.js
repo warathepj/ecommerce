@@ -2,22 +2,21 @@
 import { Mitr } from "next/font/google";
 
 const mitr = Mitr({
-  weight: ['300', '400'],
-  subsets: ['latin'],
-  display: 'swap',
-})
+  weight: ["300", "400"],
+  subsets: ["latin"],
+  display: "swap",
+});
 
 import "./globals.css";
-import Link from 'next/link';
-import { ProductProvider } from '../context/ProductContext';
+import Link from "next/link";
+import { ProductProvider } from "../context/ProductContext";
 // import { ProductsProvider } from '../context/ProductsContext';
-import { UserProvider } from '../context/userContext';
-import { CartProvider } from '../context/CartContext';
-import { AddressProvider } from '../context/AddressContext';
-import { DeliveryProvider }from '../context/DeliveryContext';
+import { UserProvider } from "../context/userContext";
+import { CartProvider } from "../context/CartContext";
+import { AddressProvider } from "../context/AddressContext";
+import { DeliveryProvider } from "../context/DeliveryContext";
 import Footer from "./components/Footer";
 import Header from "./components/Header";
-// import ShoppingCart from "./components/(icon)/ShoppingCart";
 
 // const inter = Inter({ subsets: ["latin"] });
 

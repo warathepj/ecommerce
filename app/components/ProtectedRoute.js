@@ -1,19 +1,19 @@
 // components/ProtectedRoute.js
-// components/ProtectedRoute.js how to use this file
-   'use client';
-   import { useRouter } from 'next/navigation';
-   import { useUser } from '../../context/userContext'; 
 
-   export default function ProtectedRoute({ children }) {
-     const router = useRouter();
-     const { formData } = useUser(); // Assuming formData is used for authentication
+"use client";
+import { useRouter } from "next/navigation";
+import { useUser } from "../../context/userContext";
 
-     // Check if the user is authenticated (replace with your actual logic)
-     const isAuthenticated = formData.email; 
+export default function ProtectedRoute({ children }) {
+  const router = useRouter();
+  const { formData } = useUser(); // Assuming formData is used for authentication
 
-     if (!isAuthenticated) {
-       router.push('/signup'); // Redirect to login if not authenticated
-     }
+  // Check if the user is authenticated (replace with your actual logic)
+  const isAuthenticated = formData.email;
 
-     return children; // Render the children if authenticated
-   }
+  if (!isAuthenticated) {
+    router.push("/signup"); // Redirect to login if not authenticated
+  }
+
+  return children; // Render the children if authenticated
+}

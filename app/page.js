@@ -1,17 +1,15 @@
 // app/page.js
-//delay render app/page.js 1 sec
-'use client'
-import { useRouter } from 'next/navigation';
-import { useEffect, useState } from 'react';
-import Link from 'next/link';
-import ReactSpinner from 'react-spinner';
-import ProtectedRoute from './components/ProtectedRoute';
+"use client";
+import { useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
+import Link from "next/link";
+import { redirect } from "next/navigation";
+import ReactSpinner from "react-spinner";
+import ProtectedRoute from "./components/ProtectedRoute";
 // import LoginModal from './components/LoginModal';
 import ShoppingCart from "./components/(icon)/ShoppingCart";
 import Loading from "./components/Loading";
 import Recommend from "./components/Recommend";
-import { redirect } from 'next/navigation';
-
 
 export default function Home() {
   const router = useRouter();
@@ -24,8 +22,7 @@ export default function Home() {
     }, 800);
   }, []);
   if (isLoading) {
-    return <Loading/>
-
+    return <Loading />;
   }
 
   return (
@@ -34,8 +31,8 @@ export default function Home() {
       {/* <div className='absolute top-0 left-0'>
       <LoginModal />
       </div> */}
-        <Recommend />
+      <Recommend />
     </div>
     // </ProtectedRoute>
-  )
+  );
 }
